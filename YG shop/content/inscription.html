@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - YG SHOP</title>
+    <link rel="stylesheet" href="../style/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="logo"><span>YG SHOP</span></div>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="produit.html">Boutique</a></li>
+                <li><a href="inscription.html">Inscription</a></li>
+                <li><a href="connexion.html">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h1>Créer un compte</h1>
+
+            <div id="formulaire-inscription">
+                <form id="inscriptionForm" onsubmit="return false;">
+
+                    <fieldset>
+                        <legend>Vos informations</legend>
+
+                        <div class="form-group">
+                            <label for="nom">Nom complet :</label>
+                            <input type="text" id="nom" placeholder="Votre nom complet" required>
+                            <span class="error-msg" id="nomError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input type="email" id="email" placeholder="exemple@gmail.com" required>
+                            <span class="error-msg" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tel">Numéro de téléphone :</label>
+                            <input type="tel" id="tel" placeholder="0550123456" required>
+                            <span class="error-msg" id="telError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mot de passe :</label>
+                            <input type="password" id="password" placeholder="Min 6 caractères" required>
+                            <span class="error-msg" id="passwordError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmer le mot de passe :</label>
+                            <input type="password" id="confirm-password" placeholder="Répétez le mot de passe" required>
+                            <span class="error-msg" id="confirmError"></span>
+                        </div>
+
+                    </fieldset>
+
+                    <button type="button" class="btn-action" onclick="inscrire()">S'inscrire</button>
+
+                    <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:#888;">
+                        Déjà un compte ? <a href="connexion.html" style="color:#d4af37;">Se connecter</a>
+                    </p>
+
+                </form>
+            </div>
+
+            <!-- MESSAGE SUCCÈS -->
+            <div id="message-succes-inscription" style="display:none; text-align:center; padding: 40px 20px;">
+                <div style="font-size: 4rem;">✅</div>
+                <h2 style="color: #d4af37; margin: 20px 0;">Inscription réussie !</h2>
+                <p style="color: #555;">Bienvenue <strong id="succes-nom-inscription"></strong> chez YG SHOP !</p>
+                <p style="color: #888; font-size: 0.85rem; margin-top: 10px;">Vous pouvez maintenant vous connecter.</p>
+                <a href="connexion.html" style="display:inline-block; margin-top:25px; padding: 12px 30px; background:#1a1a1a; color:white; text-decoration:none; border-radius:5px; letter-spacing:2px; text-transform:uppercase; font-size:0.85rem;">Se connecter</a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer id="mon-footer-automatique"></footer>
+
+    <script>
+        function inscrire() {
+            let isValid = true;
+
+            const nom = document.getElementById('nom').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const tel = document.getElementById('tel').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            const nameRegex = /^[a-zA-Z\s]{3,}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const telRegex = /^(05|06|07)[0-9]{8}$/;
+
+            // Validation nom
+            if (!nameRegex.test(nom)) {
+                document.getElementById('nomError').innerText = "Nom invalide (lettres seulement, min 3).";
+                isValid = false;
+            } else {
+                document.getElementById('nomError').innerText = "";
+            }
+
+            // Validation email
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').innerText = "Email invalide.";
+                isValid = false;
+            } else {
+                document.getElementById('emailError').innerText = "";
+            }
+
+            // Validation téléphone
+            if (!telRegex.test(tel)) {
+                document.getElementById('telError').innerText = "Format : 05/06/07XXXXXXXX";
+                isValid = false;
+            } else {
+                document.getElementById('telError').innerText = "";
+            }
+
+            // Validation mot de passe
+            if (password.length < 6) {
+                document.getElementById('passwordError').innerText = "Mot de passe trop court (min 6 caractères).";
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').innerText = "";
+            }
+
+            // Validation confirmation mot de passe
+            if (password !== confirmPassword) {
+                document.getElementById('confirmError').innerText = "Les mots de passe ne correspondent pas.";
+                isValid = false;
+            } else {
+                document.getElementById('confirmError').innerText = "";
+            }
+
+            if (isValid) {
+                // Sauvegarder dans localStorage
+                const utilisateur = {
+                    nom: nom,
+                    email: email,
+                    tel: tel,
+                    password: password
+                };
+                localStorage.setItem('utilisateur', JSON.stringify(utilisateur));
+
+                // Afficher message succès
+                document.getElementById('formulaire-inscription').style.display = 'none';
+                document.getElementById('succes-nom-inscription').innerText = nom;
+                document.getElementById('message-succes-inscription').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>

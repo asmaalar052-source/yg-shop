@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - YG SHOP</title>
+    <link rel="stylesheet" href="../style/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/logo.jpg">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo"><span>YG SHOP</span></div>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="produit.html">Boutique</a></li>
+                <li><a href="inscription.html">Inscription</a></li>
+                <li><a href="connexion.html">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h1>Se connecter</h1>
+
+            <div id="formulaire-connexion">
+                <form id="connexionForm" onsubmit="return false;">
+
+                    <fieldset>
+                        <legend>Vos identifiants</legend>
+
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input type="email" id="email" placeholder="exemple@gmail.com" required>
+                            <span class="error-msg" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mot de passe :</label>
+                            <input type="password" id="password" placeholder="Votre mot de passe" required>
+                            <span class="error-msg" id="passwordError"></span>
+                        </div>
+
+                    </fieldset>
+
+                    <button type="button" class="btn-action" onclick="connecter()">Se connecter</button>
+
+                    <p style="text-align:center; margin-top:15px; font-size:0.85rem; color:#888;">
+                        Pas encore de compte ? <a href="inscription.html" style="color:#d4af37;">S'inscrire</a>
+                    </p>
+
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <footer id="mon-footer-automatique"></footer>
+
+    <script>
+        function connecter() {
+            let isValid = true;
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Validation email
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').innerText = "Email invalide.";
+                isValid = false;
+            } else {
+                document.getElementById('emailError').innerText = "";
+            }
+
+            // Validation mot de passe
+            if (password.length < 6) {
+                document.getElementById('passwordError').innerText = "Mot de passe trop court.";
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').innerText = "";
+            }
+
+            if (isValid) {
+                // Récupérer l'utilisateur depuis localStorage
+                const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
+
+                if (!utilisateur) {
+                    document.getElementById('emailError').innerText = "Aucun compte trouvé. Inscrivez-vous d'abord.";
+                    return;
+                }
+
+                if (utilisateur.email !== email) {
+                    document.getElementById('emailError').innerText = "Email incorrect.";
+                    return;
+                }
+
+                if (utilisateur.password !== password) {
+                    document.getElementById('passwordError').innerText = "Mot de passe incorrect.";
+                    return;
+                }
+
+                // Connexion réussie
+                localStorage.setItem('connecte', JSON.stringify({
+                    nom: utilisateur.nom,
+                    email: utilisateur.email
+                }));
+
+                alert("✅ Bienvenue " + utilisateur.nom + " !");
+                window.location.href = "../index.html";
+            }
+        }
+    </script>
+
+</body>
+</html>

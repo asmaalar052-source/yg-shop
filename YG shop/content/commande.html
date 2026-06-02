@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande - YG SHOP</title>
+    <link rel="stylesheet" href="../style/main.css">
+</head>
+<body>
+    <header>
+        <nav></nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h1>Finaliser votre commande</h1>
+
+            <!-- FORMULAIRE -->
+            <div id="formulaire">
+                <form id="orderForm" onsubmit="return false;">
+                    <fieldset>
+                        <legend>Détails du produit</legend>
+                        <p>Produit : <strong id="display_titre"></strong></p>
+                        <p>Prix total : <strong id="display_prix"></strong></p>
+                        <p>Couleur : <strong id="display_couleur"></strong></p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Vos coordonnées</legend>
+                        <div class="form-group">
+                            <label for="client_nom">Nom complet :</label>
+                            <input type="text" id="client_nom" required>
+                            <span class="error-msg" id="nameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="client_tel">Numéro de téléphone (Algérie) :</label>
+                            <input type="tel" id="client_tel" placeholder="0550123456" required>
+                            <span class="error-msg" id="telError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="wilaya">Wilaya :</label>
+                            <input type="text" id="wilaya" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="daira">Daïra :</label>
+                            <input type="text" id="daira" required>
+                        </div>
+                    </fieldset>
+
+                    <button type="button" class="btn-action" id="btn-confirmer">Confirmer l'achat</button>
+                </form>
+            </div>
+
+            <!-- MESSAGE SUCCÈS -->
+            <div id="message-succes" style="display:none; text-align:center; padding: 40px 20px;">
+                <div style="font-size: 4rem;">✅</div>
+                <h2 style="color: #d4af37; margin: 20px 0;">Commande envoyée !</h2>
+                <p style="color: #555;">Merci <strong id="succes-nom"></strong>, votre commande a bien été reçue.</p>
+                <p style="color: #555;">Produit : <strong id="succes-titre" style="color:#d4af37;"></strong></p>
+                <p style="color: #555;">Couleur : <strong id="succes-couleur" style="color:#d4af37;"></strong></p>
+                <p style="color: #555;">Prix : <strong id="succes-prix" style="color:#d4af37;"></strong></p>
+                <p style="color: #888; font-size: 0.85rem; margin-top: 15px;">Nous vous contacterons bientôt au <strong id="succes-tel"></strong></p>
+                <a href="../index.html" style="display:inline-block; margin-top:25px; padding: 12px 30px; background:#1a1a1a; color:white; text-decoration:none; border-radius:5px; letter-spacing:2px; text-transform:uppercase; font-size:0.85rem;">Retour à la boutique</a>
+            </div>
+
+        </section>
+    </main>
+
+    <script type="module" src="../javascript/auth.js"></script>
+</body>
+</html>

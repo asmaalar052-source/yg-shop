@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YG SHOP – Bijoux & Accessoires de Luxe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="icon" type="image/png" href="images/logo.jpg">
+</head>
+<body>
+
+  <div id="intro">
+    <div id="intro-texte">YG SHOP</div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo"><span>YG SHOP</span></div>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="content/produit.html">Boutique</a></li>
+        <li><a href="content/inscription.html">Inscription</a></li>
+        <li><a href="content/connexion.html">Connexion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <img src="images/photo couverture.webp" alt="YG SHOP Hero" class="hero-bg-img">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-sub">Collection 2026</p>
+        <h1>Révélez votre<br>élégance</h1>
+        <p class="hero-desc">Découvrez notre sélection exclusive de bijoux et accessoires de luxe</p>
+        <div class="hero-buttons">
+          <a href="content/produit.html" class="btn-hero-primary">Voir la boutique</a>
+          <a href="#categories" class="btn-hero-secondary">Nos catégories</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-item">
+        <span class="stat-number" data-target="500" data-suffixe="+">500+</span>
+        <span class="stat-label">Clients satisfaits</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="50" data-suffixe="+">50+</span>
+        <span class="stat-label">Produits disponibles</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100" data-suffixe="%">100%</span>
+        <span class="stat-label">Qualité garantie</span>
+      </div>
+    </section>
+
+    <section id="categories" class="categories-section">
+      <p class="section-eyebrow">Explorer</p>
+      <h2 class="section-title">Nos catégories</h2>
+      <div class="categories-grid">
+        <a href="content/produit.html" class="categorie-card reveal d-1">
+          <img src="images/femme.avif" alt="Bijoux Femme">
+          <div class="categorie-label">Femme</div>
+        </a>
+        <a href="content/produit.html" class="categorie-card reveal d-2">
+          <img src="images/homme.jpg" alt="Bijoux Homme">
+          <div class="categorie-label">Homme</div>
+        </a>
+        <a href="content/produit.html" class="categorie-card reveal d-3">
+          <img src="images/photo colier.jpg" alt="Colliers">
+          <div class="categorie-label">Colliers</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="avantages">
+      <p class="section-eyebrow" style="color:#d4af37;">Notre engagement</p>
+      <h2>Pourquoi nous choisir ?</h2>
+      <div class="avantages-grid">
+        <div class="avantage-item reveal d-1">
+          <span class="avantage-icon">✦</span>
+          <h3>Qualité premium</h3>
+          <p>Tous nos bijoux sont sélectionnés avec le plus grand soin.</p>
+        </div>
+        <div class="avantage-item reveal d-2">
+          <span class="avantage-icon">✦</span>
+          <h3>Livraison rapide</h3>
+          <p>Livraison express disponible partout en Algérie.</p>
+        </div>
+        <div class="avantage-item reveal d-3">
+          <span class="avantage-icon">✦</span>
+          <h3>Paiement sécurisé</h3>
+          <p>Vos transactions sont protégées et sécurisées.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-content">
+        <h2>Prêt à vous faire plaisir ?</h2>
+        <p>Explorez toute notre collection et trouvez le bijou parfait.</p>
+        <a href="content/produit.html" class="btn-hero-primary">Découvrir la boutique</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="mon-footer-automatique"></footer>
+
+  <script src="javascript/data.js"></script>
+  <script src="javascript/boutique.js"></script>
+  <script>
+
+    // ── PARALLAXE HERO ──
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero-bg-img');
+      if (hero) hero.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+    });
+
+    // ── REVEAL AU SCROLL ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.15 });
+    reveals.forEach(r => observer.observe(r));
+
+    // ── COMPTEUR ANIMÉ ──
+    function animerCompteur(el) {
+      const fin = parseInt(el.dataset.target);
+      const suffixe = el.dataset.suffixe;
+      let n = 0;
+      const step = Math.ceil(fin / 60);
+      const timer = setInterval(() => {
+        n += step;
+        if (n >= fin) { n = fin; clearInterval(timer); }
+        el.textContent = n + suffixe;
+      }, 20);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.stat-number').forEach(el => animerCompteur(el));
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) statsObserver.observe(statsSection);
+
+  </script>
+
+</body>
+</html>

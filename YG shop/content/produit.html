@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique – YG SHOP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/main.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpg">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav>
+      <div class="logo"><span>YG SHOP</span></div>
+      <ul>
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="produit.html">Boutique</a></li>
+        <li><a href="inscription.html">Inscription</a></li>
+        <li><a href="connexion.html">Connexion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- TITRE PAGE -->
+    <section class="boutique-hero">
+      <h1>Notre Boutique</h1>
+      <p>Découvrez notre sélection de bijoux et accessoires de luxe</p>
+    </section>
+
+    <!-- FILTRES PAR CATÉGORIE -->
+    <section class="boutique-filtres">
+      <button class="btn-categorie active" onclick="filtrerCategorie('tous', this)">Tous</button>
+      <button class="btn-categorie" onclick="filtrerCategorie('femme', this)">Femme</button>
+      <button class="btn-categorie" onclick="filtrerCategorie('homme', this)">Homme</button>
+    </section>
+
+    <!-- GRILLE DE PRODUITS -->
+    <section class="boutique-grille">
+      <div id="produits-container" class="produits-grid"></div>
+    </section>
+
+  </main>
+
+  <footer id="mon-footer-automatique"></footer>
+
+  <script src="../javascript/data.js"></script>
+  <script src="../javascript/boutique.js"></script>
+
+</body>
+</html>
